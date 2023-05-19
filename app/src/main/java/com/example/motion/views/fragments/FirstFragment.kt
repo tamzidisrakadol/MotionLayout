@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.motion.R
@@ -45,10 +47,13 @@ class FirstFragment : Fragment() {
         }
 
         val adapter = ImgAdapter(ImgList.listOf(),requireContext(),object:ImgClickItem{
-            override fun onItemClick(imageModel: ImageModel) {
+            override fun onItemClick(imageModel: ImageModel, imgview: ImageView) {
                 val imgUrl = imageModel.imgUrl
+                val transitionName = "imgView_$imgUrl" // Assign a unique transition name based on the image URL
+                imgview.transitionName = transitionName
                 val directions = FirstFragmentDirections.actionFirstFragmentToSecondFragment(imgUrl)
-                findNavController().navigate(directions)
+                val extras = FragmentNavigatorExtras(imgview to transitionName)
+                findNavController().navigate(directions,extras)
             }
 
         })

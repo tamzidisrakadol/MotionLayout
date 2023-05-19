@@ -28,7 +28,7 @@ class ImgAdapter(private val list: List<ImageModel>,private val context:Context,
         val posterUrl = imgModel.imgUrl
         Glide.with(context).load(posterUrl).into(holder.imglListItemBinding.image)
         holder.imglListItemBinding.root.setOnClickListener {
-            imgClickItem.onItemClick(imgModel)
+            imgClickItem.onItemClick(imgModel,holder.imglListItemBinding.image)
         }
 
     }
